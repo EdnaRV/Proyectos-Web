@@ -1,0 +1,45 @@
+1. create table Proveedor( idProv int not null primary key,
+		nombre varchar(30), tel int, ubicacion varchar(200));
+2. create table Producto(idProd int not null primary key,
+				nombre varchar(30), precio int, cantidad int, 
+				idProv int, foreign key(idProd) references Proveedor(idProv)
+				on delete cascade on update cascade);
+3. create table Asiento(fila int not null, columna varchar(2) not null,
+			primary key(fila,columna);
+4. create table Distribuidor(idDistribuidor int not null primary key,
+				nombre varchar(30), ubicacion varchar(200));
+5. create table Pelicula( nombre varchar(100) not null primary key, genero varchar(50),
+				fechaSalida date not null, fechaEstreno  date not null,
+				duracion int not null, clasificacion varchar(20) not null, 
+				idDistribuidor int not null, 
+				foreign key(idDistribuidor) references Distribuidor(idDistribuidor)
+				on delete cascade on update cascade);
+6. create table Sala( numero int not null primary key, noAsientos int not null,
+			tipo varchar(40) not null);
+7. create table Empleado(idEmpleado int not null primary key, nom varchar(30) not null, ap varchar(30) not null,
+			am varchar(30) not null, turno varchar(15) not null, contraseña varchar(20) not null);
+8. create table Dulceria( noDulceria int not null,  idEmpleado int not null,
+			foreign key(idEmpleado) references Empleado(idEmpleado) 
+			on delete cascade on update cascade, primary key(noDulceria,idEmpleado));
+9. create table Venta(idVenta int not null primary key, hora time not null, fecha date not null,
+			idEmpleado int not null, foreign key(idEmpleado) references Empleado(idEmpleado)
+			on delete cascade on update cascade);
+10. create table pedido( idProd int not null, noDulceria int not null, idVenta int not null,
+			cantidad int not null, foreign key(idProd) references Producto(idProd)
+			on delete cascade on update cascade, foreign key(noDulceria) references Dulceria(noDulceria)
+			on delete cascade on update cascade, foreign key(idVenta) references Venta(idVenta)
+			on delete cascade on update cascade, 
+			primary key(idProd, noDulceria, idVenta));
+11. create table Taquilla(noTaquilla int not null, idEmpleado int not null,
+			foreign key(idEmpleado) references Empleado(idEmpleado)
+			on delete cascade on update cascade, primary key(noTaquilla,idEmpleado));
+
+12. create table Boleto( fechaFun date not null, horaFun time not null, idVenta int not null, 
+			noTaquilla int not null, nombre varchar(100) not null, numero int not null,
+			fila int not null, columna varchar(2) not null, costo float not null,
+			 foreign key(idVenta) references Venta(idVenta) on delete cascade on update cascade,
+			 foreign key(noTaquilla) references Taquilla(noTaquilla) on delete cascade on update cascade,
+			 foreign key(nombre) references Pelicula(nombre) on delete cascade on update cascade,
+			 foreign key(numero) references Sala(numero) on delete cascade on update cascade,
+			 foreign key(fila,columna) references Asiento(fila,columna) on delete cascade on update cascade, 
+			primary key(fechaFun,horaFun,idVenta,noTaquilla,nombre,numero,fila,columna));

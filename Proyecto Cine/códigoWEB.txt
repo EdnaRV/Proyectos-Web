@@ -1,0 +1,142 @@
+            $servidorBD = "localhost:3315";
+            $usuarioBD = "root";
+            $contrasenaBD = "1535";
+            $nombreBD = "proyectobd";
+            $conexion = mysqli_connect($servidorBD,$usuarioBD,$contrasenaBD,$nombreBD);
+            mysqli_query($conexion, "SET NAMES 'utf8'"); //Esta instrucción permite guardar eñes y acentos en la BD ;)
+            if(mysqli_connect_errno($conexion)){
+                die("Problemas con la conexi&oacute;n al servidor MySQL: ".mysqli_connect_error());
+            }else{
+                mysqli_query($conexion, "SET NAMES 'utf8'"); //Esta instrucción permite guardar eñes y acentos en la BD ;)
+            }
+
+
+include("./php/configBD.php");
+
+  <div class="row">
+    <div class="input-field col s6">
+      <input id="nprod" type="text" class="validate">
+      <label class="active" for="nprod">Nombre Producto</label>
+    </div>
+  </div>
+-------------------------------------------------------------------
+<form name="loginform" action="/" method="post">
+    <label>Username</label>
+    <input type="text" name="username">
+    <label>Password</label>
+    <input type="password" name="password">
+    <input type="submit" value="Login" onclick="validate()">
+</form>
+
+comparar las variables en la seccion de function del script
+loginform arriba se llama formlogin etc
+
+----------------------------------------------------------------
+
+function functionName() {
+    code to be executed;
+} 
+---------------------------------------------------------------ejemplo validar form
+<script>
+function validate() {
+    if (document.formLogin.Usuario.value == 0) {
+        alert("Enter username");
+    }
+ 
+    else if (document.formLogin.contrasena.value == 0) {
+        alert("Enter Password");
+    }
+    else {
+ 
+        alert("Sucessfull Login");
+        include("./php/venta.php");
+
+    }
+}
+</script>  
+
+----------------------------------------------------------que fue puesta en otro php 
+
+        function iSesion($usuario,$pass){
+            //
+            include("./php/configBD.php");
+            //
+            $sql = "select * from empleado where nom='$usuario' AND contraseña='$pass' ;";
+            $result = mysqli_query($conexion,$sql);
+            if(mysqli_num_rows($result) != 0){
+                session_start();//se guardan datos del usuario que inico sesion 
+                $_SESSION['usuario']=$usuario;
+                return true;
+            }  else {
+                echo "Use a valid user";
+                mysqli_free_result($result);
+                mysqli_close($conexion);
+                return false;
+            }
+        }
+----------------------------------------redireccionar a otra pag
+header("location:./php/venta.php");
+----------------------------------------proyecto guía
+1
+consulta si codigo existe
+arreglo de sesoin
+cada que se agrege iten se mete a arregle a sesion
+se le tuma a una variable que es el total
+una vez con laos items
+registro con el idempleado
+idventa
+se agrega a cada tabla con item su detalle
+
+empezar por
+	form agregar items
+	1
+	asi ya se registran los datos de la venta
+
+
+variables de sesion
+al inicio: variabales de sesion y como funcionan
+
+agregar items: reutilizar codigo del formulario
+en lugar de nombre y contra add item
+
+select : 
+hacer las variables de sesion
+
+
+-----------agregar los items ya casii esta hecho 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
